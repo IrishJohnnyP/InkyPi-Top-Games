@@ -17,7 +17,7 @@ class top_games(BasePlugin):
             return "TBD"
         try:
             dt = datetime.strptime(date_str, "%Y-%m-%d")
-            return dt.strftime("%a %m/%d").upper()
+            return dt.strftime("%m/%d")
         except Exception:
             return date_str
 
