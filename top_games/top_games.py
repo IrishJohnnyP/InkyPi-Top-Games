@@ -5,7 +5,7 @@ from utils.http_client import get_http_session
 WORKER_URL = "https://topgames.butternut.cloud"
 
 
-class Top10Games(BasePlugin):
+class top_games(BasePlugin):
 
     def generate_settings_template(self):
         params = super().generate_settings_template()
