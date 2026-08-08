@@ -10,14 +10,14 @@
     </div>
 
     <div class="nd-row nd-head">
-        <!-- Combined Date & Time with a space -->
-        <div class="datetime">DATE TIME</div>
+        <!-- Removed "DATE" header -->
+        <div class="datetime">TIME</div>
         <div class="matchup-head">MATCHUP</div>
     </div>
 
     {% for game in all_games %}
     <div class="nd-row">
-        <!-- Combined Date & Time with a space -->
+        <!-- Combined Date & Time -->
         <div class="datetime">{{ game.formatted_date }} &nbsp;{{ game.time }}</div>
 
         <!-- First Team (Home or Higher Rank on Neutral) -->
@@ -32,7 +32,6 @@
                 {{ game.team1.name }}
                 <span class="nickname">{{ game.team1.mascot }}</span>
             </span>
-            <!-- Record now hugs the school name -->
             <span class="opp-record">({{ game.team1.record }})</span>
         </div>
 
@@ -50,7 +49,6 @@
                 {{ game.team2.name }}
                 <span class="nickname">{{ game.team2.mascot }}</span>
             </span>
-            <!-- Record now hugs the school name -->
             <span class="opp-record">({{ game.team2.record }})</span>
         </div>
     </div>
