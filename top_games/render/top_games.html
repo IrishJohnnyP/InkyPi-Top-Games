@@ -1,47 +1,58 @@
 {% extends "plugin.html" %}
 
 {% block content %}
-<div class="ctg-container">
-    <div class="ctg-header">
-        <h1>{{ season }} {{ poll_name }} - TOP 10 GAMES (WEEK {{ week }})</h1>
-        <div class="ctg-updated">{{ last_updated }}</div>
-    </div>
-
-    <div class="ctg-list">
-        {% for game in all_games %}
-        <div class="ctg-row">
-            <span class="ctg-pos">#{{ loop.index }}</span>
-            <span class="ctg-date">{{ game.formatted_date }}</span>
-            <span class="ctg-time">{{ game.time }}</span>
-            <span class="ctg-venue ctg-venue-{{ game.venue_status|lower }}">{{ game.venue_status }}</span>
-
-            <!-- Higher Ranked Team -->
-            <div class="ctg-team ctg-team-home">
-                <span class="ctg-rank">{% if game.higher_team.rank %}#{{ game.higher_team.rank }}{% endif %}</span>
-                <div class="ctg-logo-wrap">
-                    {% if game.higher_team.logo %}
-                    <img class="ctg-logo" src="{{ game.higher_team.logo }}" alt="">
-                    {% endif %}
-                </div>
-                <span class="ctg-name">{{ game.higher_team.name }}</span>
-                <span class="ctg-record">{{ game.higher_team.record }}</span>
-            </div>
-
-            <span class="ctg-vs">vs</span>
-
-            <!-- Lower Ranked / Opponent Team -->
-            <div class="ctg-team ctg-team-away">
-                <span class="ctg-rank">{% if game.lower_team.rank %}#{{ game.lower_team.rank }}{% endif %}</span>
-                <div class="ctg-logo-wrap">
-                    {% if game.lower_team.logo %}
-                    <img class="ctg-logo" src="{{ game.lower_team.logo }}" alt="">
-                    {% endif %}
-                </div>
-                <span class="ctg-name">{{ game.lower_team.name }}</span>
-                <span class="ctg-record">{{ game.lower_team.record }}</span>
-            </div>
+<div class="nd-container">
+    <div class="nd-header">
+        <div class="nd-header-left">
+            <span class="nd-name">{{ season }} {{ poll_name }} - TOP 10 (WK {{ week }})</span>
         </div>
-        {% endfor %}
+        <div class="nd-header-right">{{ last_updated }}</div>
     </div>
+
+    <div class="nd-row nd-head">
+        <div class="date">DATE</div>
+        <div class="time">TIME</div>
+        <div class="site">VENUE</div>
+        <div class="opp">HIGHER TEAM</div>
+        <div class="opp">LOWER TEAM</div>
+    </div>
+
+    {% for game in all_games %}
+    <div class="nd-row">
+        <div class="date">{{ game.formatted_date }}</div>
+        <div class="time">{{ game.time }}</div>
+        <div class="site"><strong>{{ game.venue_status }}</strong></div>
+
+        <!-- Higher Ranked Team -->
+        <div class="opp">
+            {% if game.higher_team.rank %}
+            <span class="rank">#{{ game.higher_team.rank }}</span>
+            {% endif %}
+            {% if game.higher_team.logo %}
+            <img class="logo-sm" src="{{ game.higher_team.logo }}" alt="">
+            {% endif %}
+            <span class="school">
+                {{ game.higher_team.name }}
+                <span class="nickname">{{ game.higher_team.mascot }}</span>
+            </span>
+            <span class="opp-record">({{ game.higher_team.record }})</span>
+        </div>
+
+        <!-- Lower Ranked / Opponent Team -->
+        <div class="opp">
+            {% if game.lower_team.rank %}
+            <span class="rank">#{{ game.lower_team.rank }}</span>
+            {% endif %}
+            {% if game.lower_team.logo %}
+            <img class="logo-sm" src="{{ game.lower_team.logo }}" alt="">
+            {% endif %}
+            <span class="school">
+                {{ game.lower_team.name }}
+                <span class="nickname">{{ game.lower_team.mascot }}</span>
+            </span>
+            <span class="opp-record">({{ game.lower_team.record }})</span>
+        </div>
+    </div>
+    {% endfor %}
 </div>
 {% endblock %}
