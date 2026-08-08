@@ -73,7 +73,7 @@ class top_games(BasePlugin):
 
         return self.render_image(
             dimensions=dimensions,
-            html_file="top_10_games.html",
-            css_file="top_10_games.css",
+            html_file="top_games.html",
+            css_file="top_games.css",
             template_params=template_params,
         )
