@@ -64,25 +64,18 @@ class top_games(BasePlugin):
         # Sort strictly by the rank of the higher ranked team (1 to 10)
         formatted_games.sort(key=lambda x: x.get("higher_team", {}).get("rank") or 99)
 
-        col1 = formatted_games[:5]
-        col2 = formatted_games[5:10]
-
         dimensions = device_config.get_resolution()
         if device_config.get_config("orientation") == "vertical":
             dimensions = dimensions[::-1]
 
-        is_large = dimensions[0] >= 1000
         now_str = datetime.now().strftime("%b %d, %Y %I:%M %p")
 
         template_params = {
             "poll_name": data.get("poll", "AP TOP 25").upper(),
             "season": data.get("season", ""),
             "week": data.get("week", ""),
-            "col1": col1,
-            "col2": col2,
             "all_games": formatted_games,
             "last_updated": now_str,
-            "is_large": is_large,
             "plugin_settings": settings,
         }
 
