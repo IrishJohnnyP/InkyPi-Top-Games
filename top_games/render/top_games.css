@@ -4,13 +4,12 @@
 /* 13.3" (1600x1200) Variables - Default State */
 :root {
   --container-padding: 20px;
-  --header-font: 46px;         /* Reduced title font size */
-  --header-rec-font: 22px;     /* Significantly reduced timestamp size */
+  --header-font: 46px;         
+  --header-rec-font: 22px;     
   --font-normal: 54px;        
-  --font-meta: 42px;
+  --font-meta: 32px;           /* Reduced Date/Time font size */
   --logo-sm: 70px;            
-  --col-date: 100px;           /* Narrowed date column since day of week is removed */
-  --col-time: 240px;
+  --col-datetime: 320px;       /* Combined column width for Date/Time */
   --nickname-display: none;
 }
 
@@ -21,10 +20,9 @@
     --header-font: 22px; 
     --header-rec-font: 12px;
     --font-normal: 24px; 
-    --font-meta: 20px;
+    --font-meta: 16px;         /* Reduced Date/Time font size */
     --logo-sm: 30px;          
-    --col-date: 50px;
-    --col-time: 95px;
+    --col-datetime: 135px;     /* Combined column width for Date/Time */
     --nickname-display: inline;
   }
 }
@@ -67,7 +65,7 @@
 /* THE GRID */
 .nd-row {
   display: grid;
-  grid-template-columns: var(--col-date) var(--col-time) 1fr auto 1fr;
+  grid-template-columns: var(--col-datetime) 1fr auto 1fr;
   width: 100%; 
   align-items: center; 
   gap: 12px;
@@ -84,11 +82,10 @@
 }
 
 .matchup-head {
-  grid-column: 3 / -1;
+  grid-column: 2 / -1;
 }
 
-.nd-row:not(.nd-head) .date,
-.nd-row:not(.nd-head) .time {
+.nd-row:not(.nd-head) .datetime {
   font-size: var(--font-meta) !important;
   font-weight: 700;
 }
@@ -130,7 +127,7 @@
   white-space: nowrap; 
   overflow: hidden; 
   text-overflow: ellipsis; 
-  flex-grow: 1;
+  /* flex-grow removed so the record immediately follows the name */
 }
 
 .nickname {
@@ -142,7 +139,7 @@
 }
 
 .opp-record {
-  font-size: 0.85em !important;
+  font-size: 1em !important; /* Increased to match school font size */
   font-weight: 500 !important;
   margin-left: 8px;
   flex-shrink: 0;
@@ -151,7 +148,7 @@
 
 /* ENLARGED RANKING INDICATOR */
 .rank { 
-  font-size: 1.05em !important; 
+  font-size: 1.1em !important; 
   color: #000 !important; 
   font-weight: 900 !important; 
   margin-right: 8px; 
