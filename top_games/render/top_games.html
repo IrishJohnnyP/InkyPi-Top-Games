@@ -1,1 +1,115 @@
+{% extends "plugin.html" %}
+
+{% block content %}
+<div class="ctg-container">
+    <div class="ctg-header">
+        <h1>{{ season }} {{ poll_name }} - TOP GAMES (WEEK {{ week }})</h1>
+        <div class="ctg-updated">{{ last_updated }}</div>
+    </div>
+
+    <div class="ctg-columns">
+        <!-- Left Column (Games 1-5) -->
+        <div class="ctg-column">
+            {% for game in col1 %}
+            <div class="ctg-card">
+                <div class="ctg-meta">
+                    <span class="ctg-date">{{ game.formatted_date }}</span>
+                    <span class="ctg-time">{{ game.time }}</span>
+                    <span class="ctg-venue ctg-venue-{{ game.venue_status|lower }}">{{ game.venue_status }}</span>
+                </div>
+
+                <div class="ctg-teams">
+                    <!-- Higher Ranked Team -->
+                    <div class="ctg-team">
+                        <span class="ctg-rank">{% if game.higher_team.rank %}#{{ game.higher_team.rank }}{% endif %}</span>
+                        <div class="ctg-logo-wrap">
+                            {% if game.higher_team.logo %}
+                            <img class="ctg-logo" src="{{ game.higher_team.logo }}" alt="">
+                            {% endif %}
+                        </div>
+                        <span class="ctg-name">
+                            {{ game.higher_team.name }}
+                            {% if not is_large and game.higher_team.mascot %}
+                            <span class="ctg-mascot">({{ game.higher_team.mascot }})</span>
+                            {% endif %}
+                        </span>
+                        <span class="ctg-record">{{ game.higher_team.record }}</span>
+                    </div>
+
+                    <div class="ctg-vs">VS</div>
+
+                    <!-- Lower Ranked / Opponent Team -->
+                    <div class="ctg-team">
+                        <span class="ctg-rank">{% if game.lower_team.rank %}#{{ game.lower_team.rank }}{% endif %}</span>
+                        <div class="ctg-logo-wrap">
+                            {% if game.lower_team.logo %}
+                            <img class="ctg-logo" src="{{ game.lower_team.logo }}" alt="">
+                            {% endif %}
+                        </div>
+                        <span class="ctg-name">
+                            {{ game.lower_team.name }}
+                            {% if not is_large and game.lower_team.mascot %}
+                            <span class="ctg-mascot">({{ game.lower_team.mascot }})</span>
+                            {% endif %}
+                        </span>
+                        <span class="ctg-record">{{ game.lower_team.record }}</span>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Right Column (Games 6-10) -->
+        <div class="ctg-column">
+            {% for game in col2 %}
+            <div class="ctg-card">
+                <div class="ctg-meta">
+                    <span class="ctg-date">{{ game.formatted_date }}</span>
+                    <span class="ctg-time">{{ game.time }}</span>
+                    <span class="ctg-venue ctg-venue-{{ game.venue_status|lower }}">{{ game.venue_status }}</span>
+                </div>
+
+                <div class="ctg-teams">
+                    <!-- Higher Ranked Team -->
+                    <div class="ctg-team">
+                        <span class="ctg-rank">{% if game.higher_team.rank %}#{{ game.higher_team.rank }}{% endif %}</span>
+                        <div class="ctg-logo-wrap">
+                            {% if game.higher_team.logo %}
+                            <img class="ctg-logo" src="{{ game.higher_team.logo }}" alt="">
+                            {% endif %}
+                        </div>
+                        <span class="ctg-name">
+                            {{ game.higher_team.name }}
+                            {% if not is_large and game.higher_team.mascot %}
+                            <span class="ctg-mascot">({{ game.higher_team.mascot }})</span>
+                            {% endif %}
+                        </span>
+                        <span class="ctg-record">{{ game.higher_team.record }}</span>
+                    </div>
+
+                    <div class="ctg-vs">VS</div>
+
+                    <!-- Lower Ranked / Opponent Team -->
+                    <div class="ctg-team">
+                        <span class="ctg-rank">{% if game.lower_team.rank %}#{{ game.lower_team.rank }}{% endif %}</span>
+                        <div class="ctg-logo-wrap">
+                            {% if game.lower_team.logo %}
+                            <img class="ctg-logo" src="{{ game.lower_team.logo }}" alt="">
+                            {% endif %}
+                        </div>
+                        <span class="ctg-name">
+                            {{ game.lower_team.name }}
+                            {% if not is_large and game.lower_team.mascot %}
+                            <span class="ctg-mascot">({{ game.lower_team.mascot }})</span>
+                            {% endif %}
+                        </span>
+                        <span class="ctg-record">{{ game.lower_team.record }}</span>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
 
