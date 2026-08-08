@@ -1,6 +1,5 @@
 {
   "display_name": "Top Games",
   "id": "top_games",
-  "class": "top_games",
-  "repository": ""
+  "class": "top_games"
 }
