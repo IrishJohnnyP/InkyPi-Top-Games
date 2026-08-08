@@ -1,1 +1,11 @@
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        if (loadPluginSettings) {
+            document.getElementById('season').value =
+                pluginSettings.season || '';
 
+            document.getElementById('font_size').value =
+                pluginSettings.font_size || 'normal';
+        }
+    });
+</script>
