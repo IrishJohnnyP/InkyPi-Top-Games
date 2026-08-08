@@ -12,12 +12,12 @@
   --col-datetime: 320px;       
   --nickname-display: none;
   
-  /* Thick white halo for 13.3" panel */
+  /* Thick white halo for 13.3" panel 
   --text-halo: 
     3px 3px 0 #fff, -3px -3px 0 #fff, 
     3px -3px 0 #fff, -3px 3px 0 #fff, 
     0px 3px 0 #fff, 0px -3px 0 #fff, 
-    3px 0px 0 #fff, -3px 0px 0 #fff;
+    3px 0px 0 #fff, -3px 0px 0 #fff; */
 }
 
 /* 7.3" (800x480) Variables - Mobile/Small Panel State */
@@ -32,12 +32,12 @@
     --col-datetime: 135px;     
     --nickname-display: inline;
     
-    /* Thinner white halo for 7.3" panel */
+    /* Thinner white halo for 7.3" panel
     --text-halo: 
       2px 2px 0 #fff, -2px -2px 0 #fff, 
       2px -2px 0 #fff, -2px 2px 0 #fff, 
       0px 2px 0 #fff, 0px -2px 0 #fff, 
-      2px 0px 0 #fff, -2px 0px 0 #fff;
+      2px 0px 0 #fff, -2px 0px 0 #fff; */
   }
 }
 
