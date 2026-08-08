@@ -7,9 +7,9 @@
   --header-font: 46px;         
   --header-rec-font: 22px;     
   --font-normal: 54px;        
-  --font-meta: 32px;           /* Reduced Date/Time font size */
+  --font-meta: 32px;           
   --logo-sm: 70px;            
-  --col-datetime: 320px;       /* Combined column width for Date/Time */
+  --col-datetime: 320px;       
   --nickname-display: none;
 }
 
@@ -20,9 +20,9 @@
     --header-font: 22px; 
     --header-rec-font: 12px;
     --font-normal: 24px; 
-    --font-meta: 16px;         /* Reduced Date/Time font size */
+    --font-meta: 16px;         
     --logo-sm: 30px;          
-    --col-datetime: 135px;     /* Combined column width for Date/Time */
+    --col-datetime: 135px;     
     --nickname-display: inline;
   }
 }
@@ -65,10 +65,11 @@
 /* THE GRID */
 .nd-row {
   display: grid;
-  grid-template-columns: var(--col-datetime) 1fr auto 1fr;
+  /* First team column fits its content tightly so "vs." stays right next to it */
+  grid-template-columns: var(--col-datetime) max-content auto 1fr;
   width: 100%; 
   align-items: center; 
-  gap: 12px;
+  gap: 8px;
 }
 
 .nd-head { 
@@ -90,7 +91,8 @@
   font-weight: 700;
 }
 
-.school, .opp-record { 
+/* Team Name, Record, and Rank now share the exact same main font size */
+.school, .opp-record, .rank { 
   font-size: var(--font-normal) !important; 
 }
 
@@ -104,7 +106,7 @@
 .vs {
   font-size: var(--font-meta) !important;
   font-weight: 900 !important;
-  padding: 0 6px;
+  padding: 0 2px;
   color: #000 !important;
 }
 
@@ -127,7 +129,6 @@
   white-space: nowrap; 
   overflow: hidden; 
   text-overflow: ellipsis; 
-  /* flex-grow removed so the record immediately follows the name */
 }
 
 .nickname {
@@ -139,18 +140,15 @@
 }
 
 .opp-record {
-  font-size: 1em !important; /* Increased to match school font size */
   font-weight: 500 !important;
-  margin-left: 8px;
+  margin-left: 6px;
   flex-shrink: 0;
   color: #000 !important;
 }
 
-/* ENLARGED RANKING INDICATOR */
 .rank { 
-  font-size: 1.1em !important; 
   color: #000 !important; 
   font-weight: 900 !important; 
-  margin-right: 8px; 
+  margin-right: 6px; 
   flex-shrink: 0;
 }
