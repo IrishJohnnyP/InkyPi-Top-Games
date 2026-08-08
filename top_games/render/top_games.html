@@ -12,45 +12,44 @@
     <div class="nd-row nd-head">
         <div class="date">DATE</div>
         <div class="time">TIME</div>
-        <div class="site">VENUE</div>
-        <div class="opp">HIGHER TEAM</div>
-        <div class="opp">LOWER TEAM</div>
+        <div class="matchup-head">MATCHUP</div>
     </div>
 
     {% for game in all_games %}
     <div class="nd-row">
         <div class="date">{{ game.formatted_date }}</div>
         <div class="time">{{ game.time }}</div>
-        <div class="site"><strong>{{ game.venue_status }}</strong></div>
 
-        <!-- Higher Ranked Team -->
+        <!-- First Team (Home or Higher Rank on Neutral) -->
         <div class="opp">
-            {% if game.higher_team.rank %}
-            <span class="rank">#{{ game.higher_team.rank }}</span>
+            {% if game.team1.rank %}
+            <span class="rank">#{{ game.team1.rank }}</span>
             {% endif %}
-            {% if game.higher_team.logo %}
-            <img class="logo-sm" src="{{ game.higher_team.logo }}" alt="">
+            {% if game.team1.logo %}
+            <img class="logo-sm" src="{{ game.team1.logo }}" alt="">
             {% endif %}
             <span class="school">
-                {{ game.higher_team.name }}
-                <span class="nickname">{{ game.higher_team.mascot }}</span>
+                {{ game.team1.name }}
+                <span class="nickname">{{ game.team1.mascot }}</span>
             </span>
-            <span class="opp-record">({{ game.higher_team.record }})</span>
+            <span class="opp-record">({{ game.team1.record }})</span>
         </div>
 
-        <!-- Lower Ranked / Opponent Team -->
+        <div class="vs">vs.</div>
+
+        <!-- Second Team (Away or Lower Rank on Neutral) -->
         <div class="opp">
-            {% if game.lower_team.rank %}
-            <span class="rank">#{{ game.lower_team.rank }}</span>
+            {% if game.team2.rank %}
+            <span class="rank">#{{ game.team2.rank }}</span>
             {% endif %}
-            {% if game.lower_team.logo %}
-            <img class="logo-sm" src="{{ game.lower_team.logo }}" alt="">
+            {% if game.team2.logo %}
+            <img class="logo-sm" src="{{ game.team2.logo }}" alt="">
             {% endif %}
             <span class="school">
-                {{ game.lower_team.name }}
-                <span class="nickname">{{ game.lower_team.mascot }}</span>
+                {{ game.team2.name }}
+                <span class="nickname">{{ game.team2.mascot }}</span>
             </span>
-            <span class="opp-record">({{ game.lower_team.record }})</span>
+            <span class="opp-record">({{ game.team2.record }})</span>
         </div>
     </div>
     {% endfor %}
