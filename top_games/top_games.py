@@ -41,17 +41,29 @@ class top_games(BasePlugin):
 
         raw_games = data.get("games", [])
 
-        # Process games for template rendering
+        # Process games and determine home/away team positioning
         formatted_games = []
         for g in raw_games:
             game_copy = dict(g)
             game_copy["formatted_date"] = self._format_game_date(g.get("date"))
+
+            venue_status = g.get("venue_status", "Neutral")
+            higher = g.get("higher_team", {})
+            lower = g.get("lower_team", {})
+
+            # Order teams: Home team first, or higher ranked team if neutral
+            if venue_status == "Away":
+                game_copy["team1"] = lower
+                game_copy["team2"] = higher
+            else:
+                game_copy["team1"] = higher
+                game_copy["team2"] = lower
+
             formatted_games.append(game_copy)
 
-        # Sort the games strictly by the rank of the higher team (1 to 10)
+        # Sort strictly by the rank of the higher ranked team (1 to 10)
         formatted_games.sort(key=lambda x: x.get("higher_team", {}).get("rank") or 99)
 
-        # Split into two 5-game columns for side-by-side display (retained for template compatibility)
         col1 = formatted_games[:5]
         col2 = formatted_games[5:10]
 
