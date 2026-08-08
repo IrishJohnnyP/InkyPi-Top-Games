@@ -1,26 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500;700;900&display=swap');
 
 :root {
-    --font-header: 22px;
-    --font-updated: 12px;
-    --font-meta: 12px;
-    --font-rank: 15px;
-    --font-name: 16px;
-    --font-mascot: 13px;
-    --font-record: 14px;
-    --logo-size: 22px;
+    --font-header: 18px;
+    --font-updated: 11px;
+    --font-row: 13px;
+    --logo-size: 20px;
 }
 
 @media (min-width: 1400px) and (min-height: 1000px) {
     :root {
-        --font-header: 44px;
-        --font-updated: 22px;
-        --font-meta: 22px;
-        --font-rank: 30px;
-        --font-name: 32px;
-        --font-mascot: 24px;
-        --font-record: 28px;
-        --logo-size: 48px;
+        --font-header: 32px;
+        --font-updated: 16px;
+        --font-row: 22px;
+        --logo-size: 36px;
     }
 }
 
@@ -29,7 +21,7 @@
     flex-direction: column;
     width: 100vw;
     height: 100vh;
-    padding: 1.5% 1%;
+    padding: 1% 1.5%;
     box-sizing: border-box;
     font-family: Roboto, sans-serif !important;
     color: #000 !important;
@@ -41,8 +33,8 @@
     justify-content: space-between;
     align-items: flex-end;
     border-bottom: 3px solid #000;
-    padding-bottom: 2px;
-    margin-bottom: 4px;
+    padding-bottom: 3px;
+    margin-bottom: 6px;
     flex-shrink: 0;
 }
 
@@ -58,58 +50,56 @@
     font-weight: 700;
 }
 
-.ctg-columns {
+.ctg-list {
     display: flex;
-    flex-direction: row;
-    gap: 3%;
+    flex-direction: column;
+    justify-content: space-between;
     flex-grow: 1;
 }
 
-.ctg-column {
-    flex: 1;
+.ctg-row {
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.ctg-card {
-    border: 2px solid #000;
-    border-radius: 4px;
-    padding: 3px 6px;
-    margin-bottom: 3px;
-    display: flex;
-    flex-direction: column;
-}
-
-.ctg-meta {
-    display: flex;
-    justify-content: space-between;
-    font-size: var(--font-meta);
-    font-weight: 900;
-    border-bottom: 1px solid #ccc;
-    padding-bottom: 1px;
-    margin-bottom: 2px;
-    text-transform: uppercase;
-}
-
-.ctg-venue {
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    padding: 2px 0;
+    font-size: var(--font-row);
     font-weight: 700;
 }
 
-.ctg-teams {
-    display: flex;
-    flex-direction: column;
+.ctg-pos {
+    width: 30px;
+    font-weight: 900;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.ctg-date {
+    width: 75px;
+    flex-shrink: 0;
+}
+
+.ctg-time {
+    width: 70px;
+    flex-shrink: 0;
+}
+
+.ctg-venue {
+    width: 60px;
+    font-size: 0.9em;
+    color: #441515;
+    flex-shrink: 0;
 }
 
 .ctg-team {
     display: flex;
     align-items: center;
-    height: 26px;
+    flex: 1;
+    overflow: hidden;
+    margin: 0 4px;
 }
 
 .ctg-rank {
     width: 28px;
-    font-size: var(--font-rank);
     font-weight: 900;
     text-align: right;
     margin-right: 4px;
@@ -135,7 +125,6 @@
 }
 
 .ctg-name {
-    font-size: var(--font-name);
     font-weight: 700;
     white-space: nowrap;
     overflow: hidden;
@@ -143,26 +132,19 @@
     flex-grow: 1;
 }
 
-.ctg-mascot {
-    font-size: var(--font-mascot);
-    font-weight: 500;
-    margin-left: 2px;
-}
-
 .ctg-record {
-    font-size: var(--font-record);
-    font-weight: 700;
-    text-align: right;
+    font-size: 0.9em;
+    font-weight: 500;
+    margin-left: 6px;
     flex-shrink: 0;
-    margin-left: 4px;
+    color: #333;
 }
 
 .ctg-vs {
-    font-size: 10px;
+    font-size: 0.85em;
     font-weight: 900;
-    text-align: center;
-    line-height: 10px;
-    color: #555;
-    margin: -1px 0;
+    color: #666;
+    margin: 0 6px;
+    text-transform: lowercase;
+    flex-shrink: 0;
 }
-
