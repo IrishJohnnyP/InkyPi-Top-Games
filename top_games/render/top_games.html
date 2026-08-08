@@ -1,7 +1,12 @@
 {% extends "plugin.html" %}
 
 {% block content %}
-<div class="nd-container">
+<!-- Dynamically apply the uploaded background image -->
+<div class="nd-container" 
+     {% if plugin_settings and plugin_settings.background_image %}
+     style="background-image: url('{{ plugin_settings.background_image }}'); background-size: cover; background-position: center; background-repeat: no-repeat;"
+     {% endif %}>
+     
     <div class="nd-header">
         <div class="nd-header-left">
             <span class="nd-name">{{ season }} {{ poll_name }} - TOP 10 (WK {{ week }})</span>
@@ -10,7 +15,6 @@
     </div>
 
     <div class="nd-row nd-head">
-        <!-- Removed "DATE" header -->
         <div class="datetime">TIME</div>
         <div class="matchup-head">MATCHUP</div>
     </div>
