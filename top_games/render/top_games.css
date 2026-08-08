@@ -4,10 +4,10 @@
 /* 13.3" (1600x1200) Variables - Default State */
 :root {
   --container-padding: 20px;
-  --header-font: 46px;         
+  --header-font: 58px;         /* Increased header title font size */
   --header-rec-font: 22px;     
   --font-normal: 54px;        
-  --font-meta: 32px;           
+  --font-meta: 38px;           /* Slightly increased Date/Time font size */
   --logo-sm: 70px;            
   --col-datetime: 320px;       
   --nickname-display: none;
@@ -17,10 +17,10 @@
 @media (max-width: 800px) {
   :root {
     --container-padding: 8px;
-    --header-font: 22px; 
+    --header-font: 26px;       /* Increased header title font size */
     --header-rec-font: 12px;
     --font-normal: 24px; 
-    --font-meta: 16px;         
+    --font-meta: 18px;         /* Slightly increased Date/Time font size */
     --logo-sm: 30px;          
     --col-datetime: 135px;     
     --nickname-display: inline;
@@ -65,7 +65,6 @@
 /* THE GRID */
 .nd-row {
   display: grid;
-  /* First team column fits its content tightly so "vs." stays right next to it */
   grid-template-columns: var(--col-datetime) max-content auto 1fr;
   width: 100%; 
   align-items: center; 
@@ -91,9 +90,12 @@
   font-weight: 700;
 }
 
-/* Team Name, Record, and Rank now share the exact same main font size */
-.school, .opp-record, .rank { 
+.school { 
   font-size: var(--font-normal) !important; 
+  font-weight: 700; 
+  white-space: nowrap; 
+  overflow: hidden; 
+  text-overflow: ellipsis; 
 }
 
 .opp { 
@@ -103,10 +105,11 @@
   overflow: hidden; 
 }
 
+/* Increased font size for "vs." */
 .vs {
-  font-size: var(--font-meta) !important;
+  font-size: calc(var(--font-normal) * 0.85) !important;
   font-weight: 900 !important;
-  padding: 0 2px;
+  padding: 0 4px;
   color: #000 !important;
 }
 
@@ -124,13 +127,6 @@
   image-rendering: pixelated !important;
 }
 
-.school { 
-  font-weight: 700; 
-  white-space: nowrap; 
-  overflow: hidden; 
-  text-overflow: ellipsis; 
-}
-
 .nickname {
   display: var(--nickname-display) !important;
   font-size: 0.85em !important;
@@ -139,14 +135,18 @@
   margin-left: 4px;
 }
 
+/* Reduced font size for team record */
 .opp-record {
+  font-size: calc(var(--font-normal) * 0.82) !important;
   font-weight: 500 !important;
   margin-left: 6px;
   flex-shrink: 0;
   color: #000 !important;
 }
 
+/* Reduced font size for ranking indicator */
 .rank { 
+  font-size: calc(var(--font-normal) * 0.85) !important;
   color: #000 !important; 
   font-weight: 900 !important; 
   margin-right: 6px; 
