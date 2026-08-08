@@ -1,150 +1,152 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500;700;900&display=swap');
+/* Import Jost Font */
+@import url('https://fonts.googleapis.com/css2?family=Jost:wght@500;700;900&display=swap');
 
+/* 13.3" (1600x1200) Variables - Default State */
 :root {
-    --font-header: 18px;
-    --font-updated: 11px;
-    --font-row: 13px;
-    --logo-size: 20px;
+  --container-padding: 15px;
+  --header-font: 44px;  
+  --header-rec-font: 26px;
+  --font-normal: 26px;        
+  --font-meta: 24px;
+  --logo-sm: 26px;            
+  --col-date: 130px;
+  --col-time: 150px;
+  --col-site: 130px;
+  --col-opp: 1fr;
+  --nickname-display: none;
 }
 
-@media (min-width: 1400px) and (min-height: 1000px) {
-    :root {
-        --font-header: 32px;
-        --font-updated: 16px;
-        --font-row: 22px;
-        --logo-size: 36px;
-    }
+/* 7.3" (800x480) Variables - Mobile/Small Panel State */
+@media (max-width: 800px) {
+  :root {
+    --container-padding: 6px;
+    --header-font: 20px; 
+    --header-rec-font: 14px;
+    --font-normal: 14px; 
+    --font-meta: 13px;
+    --logo-sm: 16px;          
+    --col-date: 65px;
+    --col-time: 75px;
+    --col-site: 65px;
+    --col-opp: 1fr;
+    --nickname-display: inline;
+  }
 }
 
-.ctg-container {
-    display: flex;
-    flex-direction: column;
-    width: 100vw;
-    height: 100vh;
-    padding: 1% 1.5%;
-    box-sizing: border-box;
-    font-family: Roboto, sans-serif !important;
-    color: #000 !important;
-    background: #fff !important;
+/* HARDWARE OPTIMIZATION */
+.nd-container, .nd-container * {
+  font-family: Jost, Arial, sans-serif !important;
+  color: #000 !important;
+  box-sizing: border-box;
+  background-color: transparent !important;
+  line-height: 1.15 !important; 
+  text-rendering: auto; 
+  -webkit-font-smoothing: none !important; 
+  font-smoothing: none !important;
+  font-variant-ligatures: none;
 }
 
-.ctg-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    border-bottom: 3px solid #000;
-    padding-bottom: 3px;
-    margin-bottom: 6px;
-    flex-shrink: 0;
+.nd-container {
+  width: 100%; 
+  height: 100%; 
+  display: flex; 
+  flex-direction: column;
+  padding: 0px var(--container-padding) 1px var(--container-padding);
+  overflow: hidden;
+  justify-content: space-between; 
 }
 
-.ctg-header h1 {
-    margin: 0;
-    font-size: var(--font-header);
-    font-weight: 900;
-    text-transform: uppercase;
+.nd-header {
+  display: flex; 
+  align-items: center; 
+  justify-content: space-between;
+  border-bottom: 6px solid #000; 
+  padding-bottom: 3px; 
 }
 
-.ctg-updated {
-    font-size: var(--font-updated);
-    font-weight: 700;
+.nd-header-left { display: flex; align-items: center; gap: 15px; }
+.nd-name { font-size: var(--header-font) !important; font-weight: 900 !important; text-transform: uppercase; }
+.nd-header-right { font-size: var(--header-rec-font) !important; font-weight: 900 !important; }
+
+/* THE GRID */
+.nd-row {
+  display: grid;
+  grid-template-columns: var(--col-date) var(--col-time) var(--col-site) var(--col-opp) var(--col-opp);
+  width: 100%; 
+  align-items: center; 
+  gap: 10px;
 }
 
-.ctg-list {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    flex-grow: 1;
+.nd-head { 
+  border-bottom: 3px solid #000; 
+  padding-bottom: 4px; 
 }
 
-.ctg-row {
-    display: flex;
-    align-items: center;
-    border-bottom: 1px solid #ddd;
-    padding: 2px 0;
-    font-size: var(--font-row);
-    font-weight: 700;
+.nd-head div { 
+  font-size: calc(var(--font-normal) * 0.8) !important; 
+  font-weight: 900 !important; 
 }
 
-.ctg-pos {
-    width: 30px;
-    font-weight: 900;
-    text-align: center;
-    flex-shrink: 0;
+.nd-row:not(.nd-head) .date,
+.nd-row:not(.nd-head) .time,
+.nd-row:not(.nd-head) .site {
+  font-size: var(--font-meta) !important;
+  font-weight: 700;
 }
 
-.ctg-date {
-    width: 75px;
-    flex-shrink: 0;
+.school, .opp-record { 
+  font-size: var(--font-normal) !important; 
 }
 
-.ctg-time {
-    width: 70px;
-    flex-shrink: 0;
+.opp { 
+  display: flex; 
+  align-items: center; 
+  min-width: 0; 
+  overflow: hidden; 
 }
 
-.ctg-venue {
-    width: 60px;
-    font-size: 0.9em;
-    color: #441515;
-    flex-shrink: 0;
+/* LOGOS */
+.logo-sm { 
+  width: var(--logo-sm) !important; 
+  height: var(--logo-sm) !important; 
+  max-width: var(--logo-sm) !important;
+  max-height: var(--logo-sm) !important;
+  margin-right: 8px; 
+  flex-shrink: 0; 
+  object-fit: contain; 
+  image-rendering: -webkit-optimize-contrast !important;
+  image-rendering: crisp-edges !important;
+  image-rendering: pixelated !important;
 }
 
-.ctg-team {
-    display: flex;
-    align-items: center;
-    flex: 1;
-    overflow: hidden;
-    margin: 0 4px;
+.school { 
+  font-weight: 700; 
+  white-space: nowrap; 
+  overflow: hidden; 
+  text-overflow: ellipsis; 
+  flex-grow: 1;
 }
 
-.ctg-rank {
-    width: 28px;
-    font-weight: 900;
-    text-align: right;
-    margin-right: 4px;
-    flex-shrink: 0;
+.nickname {
+  display: var(--nickname-display) !important;
+  font-size: 0.85em !important;
+  font-weight: 500 !important; 
+  color: #000 !important;
+  margin-left: 4px;
 }
 
-.ctg-logo-wrap {
-    width: var(--logo-size);
-    height: var(--logo-size);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-right: 6px;
-    flex-shrink: 0;
+.opp-record {
+  font-size: 0.85em !important;
+  font-weight: 500 !important;
+  margin-left: 6px;
+  flex-shrink: 0;
+  color: #333;
 }
 
-.ctg-logo {
-    width: var(--logo-size) !important;
-    height: var(--logo-size) !important;
-    object-fit: contain;
-    image-rendering: -webkit-optimize-contrast !important;
-    image-rendering: crisp-edges !important;
-}
-
-.ctg-name {
-    font-weight: 700;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    flex-grow: 1;
-}
-
-.ctg-record {
-    font-size: 0.9em;
-    font-weight: 500;
-    margin-left: 6px;
-    flex-shrink: 0;
-    color: #333;
-}
-
-.ctg-vs {
-    font-size: 0.85em;
-    font-weight: 900;
-    color: #666;
-    margin: 0 6px;
-    text-transform: lowercase;
-    flex-shrink: 0;
+.rank { 
+  font-size: 0.85em !important; 
+  color: #000 !important; 
+  font-weight: 900; 
+  margin-right: 6px; 
+  flex-shrink: 0;
 }
