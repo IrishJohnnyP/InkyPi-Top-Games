@@ -1,1 +1,168 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500;700;900&display=swap');
+
+:root {
+    --font-header: 22px;
+    --font-updated: 12px;
+    --font-meta: 12px;
+    --font-rank: 15px;
+    --font-name: 16px;
+    --font-mascot: 13px;
+    --font-record: 14px;
+    --logo-size: 22px;
+}
+
+@media (min-width: 1400px) and (min-height: 1000px) {
+    :root {
+        --font-header: 44px;
+        --font-updated: 22px;
+        --font-meta: 22px;
+        --font-rank: 30px;
+        --font-name: 32px;
+        --font-mascot: 24px;
+        --font-record: 28px;
+        --logo-size: 48px;
+    }
+}
+
+.ctg-container {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+    padding: 1.5% 1%;
+    box-sizing: border-box;
+    font-family: Roboto, sans-serif !important;
+    color: #000 !important;
+    background: #fff !important;
+}
+
+.ctg-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    border-bottom: 3px solid #000;
+    padding-bottom: 2px;
+    margin-bottom: 4px;
+    flex-shrink: 0;
+}
+
+.ctg-header h1 {
+    margin: 0;
+    font-size: var(--font-header);
+    font-weight: 900;
+    text-transform: uppercase;
+}
+
+.ctg-updated {
+    font-size: var(--font-updated);
+    font-weight: 700;
+}
+
+.ctg-columns {
+    display: flex;
+    flex-direction: row;
+    gap: 3%;
+    flex-grow: 1;
+}
+
+.ctg-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.ctg-card {
+    border: 2px solid #000;
+    border-radius: 4px;
+    padding: 3px 6px;
+    margin-bottom: 3px;
+    display: flex;
+    flex-direction: column;
+}
+
+.ctg-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: var(--font-meta);
+    font-weight: 900;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 1px;
+    margin-bottom: 2px;
+    text-transform: uppercase;
+}
+
+.ctg-venue {
+    font-weight: 700;
+}
+
+.ctg-teams {
+    display: flex;
+    flex-direction: column;
+}
+
+.ctg-team {
+    display: flex;
+    align-items: center;
+    height: 26px;
+}
+
+.ctg-rank {
+    width: 28px;
+    font-size: var(--font-rank);
+    font-weight: 900;
+    text-align: right;
+    margin-right: 4px;
+    flex-shrink: 0;
+}
+
+.ctg-logo-wrap {
+    width: var(--logo-size);
+    height: var(--logo-size);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 6px;
+    flex-shrink: 0;
+}
+
+.ctg-logo {
+    width: var(--logo-size) !important;
+    height: var(--logo-size) !important;
+    object-fit: contain;
+    image-rendering: -webkit-optimize-contrast !important;
+    image-rendering: crisp-edges !important;
+}
+
+.ctg-name {
+    font-size: var(--font-name);
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex-grow: 1;
+}
+
+.ctg-mascot {
+    font-size: var(--font-mascot);
+    font-weight: 500;
+    margin-left: 2px;
+}
+
+.ctg-record {
+    font-size: var(--font-record);
+    font-weight: 700;
+    text-align: right;
+    flex-shrink: 0;
+    margin-left: 4px;
+}
+
+.ctg-vs {
+    font-size: 10px;
+    font-weight: 900;
+    text-align: center;
+    line-height: 10px;
+    color: #555;
+    margin: -1px 0;
+}
 
