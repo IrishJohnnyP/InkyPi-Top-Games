@@ -48,7 +48,10 @@ class top_games(BasePlugin):
             game_copy["formatted_date"] = self._format_game_date(g.get("date"))
             formatted_games.append(game_copy)
 
-        # Split into two 5-game columns for side-by-side display
+        # Sort the games strictly by the rank of the higher team (1 to 10)
+        formatted_games.sort(key=lambda x: x.get("higher_team", {}).get("rank") or 99)
+
+        # Split into two 5-game columns for side-by-side display (retained for template compatibility)
         col1 = formatted_games[:5]
         col2 = formatted_games[5:10]
 
