@@ -4,12 +4,12 @@
 /* 13.3" (1600x1200) Variables - Default State */
 :root {
   --container-padding: 20px;
-  --header-font: 72px;  
-  --header-rec-font: 42px;
+  --header-font: 46px;         /* Reduced title font size */
+  --header-rec-font: 22px;     /* Significantly reduced timestamp size */
   --font-normal: 54px;        
   --font-meta: 42px;
   --logo-sm: 70px;            
-  --col-date: 140px;
+  --col-date: 100px;           /* Narrowed date column since day of week is removed */
   --col-time: 240px;
   --nickname-display: none;
 }
@@ -18,12 +18,12 @@
 @media (max-width: 800px) {
   :root {
     --container-padding: 8px;
-    --header-font: 28px; 
-    --header-rec-font: 24px;
+    --header-font: 22px; 
+    --header-rec-font: 12px;
     --font-normal: 24px; 
     --font-meta: 20px;
     --logo-sm: 30px;          
-    --col-date: 70px;
+    --col-date: 50px;
     --col-time: 95px;
     --nickname-display: inline;
   }
@@ -54,7 +54,7 @@
 
 .nd-header {
   display: flex; 
-  align-items: center; 
+  align-items: flex-end; 
   justify-content: space-between;
   border-bottom: 8px solid #000; 
   padding-bottom: 4px; 
@@ -62,7 +62,7 @@
 
 .nd-header-left { display: flex; align-items: center; gap: 15px; }
 .nd-name { font-size: var(--header-font) !important; font-weight: 900 !important; text-transform: uppercase; }
-.nd-header-right { font-size: var(--header-rec-font) !important; font-weight: 900 !important; }
+.nd-header-right { font-size: var(--header-rec-font) !important; font-weight: 700 !important; color: #444 !important; }
 
 /* THE GRID */
 .nd-row {
@@ -149,10 +149,11 @@
   color: #000 !important;
 }
 
+/* ENLARGED RANKING INDICATOR */
 .rank { 
-  font-size: 0.8em !important; 
+  font-size: 1.05em !important; 
   color: #000 !important; 
-  font-weight: 900; 
+  font-weight: 900 !important; 
   margin-right: 8px; 
   flex-shrink: 0;
 }
