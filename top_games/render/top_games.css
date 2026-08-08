@@ -4,26 +4,40 @@
 /* 13.3" (1600x1200) Variables - Default State */
 :root {
   --container-padding: 20px;
-  --header-font: 58px;         /* Increased header title font size */
+  --header-font: 58px;         
   --header-rec-font: 22px;     
   --font-normal: 54px;        
-  --font-meta: 38px;           /* Slightly increased Date/Time font size */
+  --font-meta: 38px;           
   --logo-sm: 70px;            
   --col-datetime: 320px;       
   --nickname-display: none;
+  
+  /* Thick white halo for 13.3" panel */
+  --text-halo: 
+    3px 3px 0 #fff, -3px -3px 0 #fff, 
+    3px -3px 0 #fff, -3px 3px 0 #fff, 
+    0px 3px 0 #fff, 0px -3px 0 #fff, 
+    3px 0px 0 #fff, -3px 0px 0 #fff;
 }
 
 /* 7.3" (800x480) Variables - Mobile/Small Panel State */
 @media (max-width: 800px) {
   :root {
     --container-padding: 8px;
-    --header-font: 26px;       /* Increased header title font size */
+    --header-font: 26px;       
     --header-rec-font: 12px;
     --font-normal: 24px; 
-    --font-meta: 18px;         /* Slightly increased Date/Time font size */
+    --font-meta: 18px;         
     --logo-sm: 30px;          
     --col-datetime: 135px;     
     --nickname-display: inline;
+    
+    /* Thinner white halo for 7.3" panel */
+    --text-halo: 
+      2px 2px 0 #fff, -2px -2px 0 #fff, 
+      2px -2px 0 #fff, -2px 2px 0 #fff, 
+      0px 2px 0 #fff, 0px -2px 0 #fff, 
+      2px 0px 0 #fff, -2px 0px 0 #fff;
   }
 }
 
@@ -48,6 +62,9 @@
   padding: 0px var(--container-padding) 1px var(--container-padding);
   overflow: hidden;
   justify-content: space-between; 
+  
+  /* Applies the white text outline dynamically */
+  text-shadow: var(--text-halo);
 }
 
 .nd-header {
