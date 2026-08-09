@@ -7,11 +7,13 @@
      style="background-image: url('{{ plugin_settings.background_image }}'); background-size: cover; background-position: center; background-repeat: no-repeat;"
      {% endif %}>
      
-    <div class="nd-header">
+     <div class="nd-header">
         <div class="nd-header-left">
-            <span class="nd-name">{{ season }} {{ poll_name }} - TOP 10 (WK {{ week }})</span>
+            <span class="nd-name">Top 10 Games</span>
         </div>
-        <div class="nd-header-right">{{ last_updated }}</div>
+        <div class="nd-header-right">
+            Updated: {{ last_updated }} &bull; {{ poll_name }} - Week {{ week }}
+        </div>
     </div>
 
     <div class="nd-row nd-head">
