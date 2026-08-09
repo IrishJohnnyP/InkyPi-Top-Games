@@ -174,3 +174,9 @@
   margin-right: 6px; 
   flex-shrink: 0;
 }
+
+/* Adds a dividing line between games, skipping the header and the last game */
+.nd-row:not(.nd-head):not(:last-child) {
+  border-bottom: 2px solid #000;
+  padding-bottom: 8px;
+}
