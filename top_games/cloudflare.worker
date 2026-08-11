@@ -1,0 +1,195 @@
+export default {
+  async fetch(request, env, ctx) {
+    const CACHE_VERSION = "v4";
+    const url = new URL(request.url);
+    const season = Number(url.searchParams.get("season") ?? "2026");
+    const week = Number(url.searchParams.get("week") ?? "1");
+    const tzParam = url.searchParams.get("tz") ?? "America/Chicago";
+
+    const cacheKey = new Request(
+      `https://topgames.butternut.cloud/internal-cache/${CACHE_VERSION}/season-${season}-week-${week}`,
+      request
+    );
+
+    const cache = caches.default;
+    const cached = await cache.match(cacheKey);
+    if (cached) return cached;
+
+    // Fail-safe check to ensure the secret is actively bound to the worker
+    const rawApiKey = env.API_key;
+    if (!rawApiKey) {
+      return new Response(
+        JSON.stringify({ 
+          error: "API key missing. The Cloudflare secret 'API_key' is not currently exposed to this Worker's environment." 
+        }, null, 2),
+        { status: 500, headers: { "Content-Type": "application/json" } }
+      );
+    }
+
+    // Defensively clean the key of any accidental spaces, newlines, or quotes
+    const apiKey = rawApiKey.trim().replace(/^["']|["']$/g, '');
+
+    const headers = {
+      "Accept": "application/json",
+      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+      "Authorization": `Bearer ${apiKey}`
+    };
+
+    const gamesUrl = `https://api.collegefootballdata.com/games?year=${season}&week=${week}&seasonType=regular`;
+    const rankingsUrl = `https://api.collegefootballdata.com/rankings?year=${season}&week=${week}&seasonType=regular`;
+    const teamsUrl = `https://api.collegefootballdata.com/teams`;
+    const recordsUrl = `https://api.collegefootballdata.com/records?year=${season}`;
+
+    async function fetchAndParse(fetchUrl, name) {
+      const res = await fetch(fetchUrl, { headers });
+      const text = await res.text();
+      
+      if (!res.ok) {
+        throw new Error(`${name} API returned status ${res.status}: ${text.substring(0, 100)}...`);
+      }
+      
+      try {
+        return JSON.parse(text);
+      } catch (e) {
+        throw new Error(`${name} API returned invalid JSON: ${text.substring(0, 100)}...`);
+      }
+    }
+
+    let rawGames = [];
+    let rankingsData = [];
+    let teamsData = [];
+    let recordsData = [];
+    let teamMetaMap = {};
+    let recordsMap = {};
+
+    try {
+      [rawGames, rankingsData, teamsData, recordsData] = await Promise.all([
+        fetchAndParse(gamesUrl, "Games"),
+        fetchAndParse(rankingsUrl, "Rankings"),
+        fetchAndParse(teamsUrl, "Teams"),
+        fetchAndParse(recordsUrl, "Records")
+      ]);
+
+      for (const t of teamsData) {
+        teamMetaMap[t.school] = { mascot: t.mascot ?? "", logo: t.logos?.[0] ?? null };
+      }
+
+      for (const r of recordsData) {
+        recordsMap[r.team] = `${r.total?.wins ?? 0}-${r.total?.losses ?? 0}`;
+      }
+    } catch (err) {
+      return new Response(JSON.stringify({ error: err.message }, null, 2), { 
+        status: 500,
+        headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" }
+      });
+    }
+
+    const polls = rankingsData[0]?.polls ?? [];
+    const targetPoll = 
+      polls.find(p => p.poll && (p.poll.toLowerCase().includes("playoff") || p.poll.toLowerCase().includes("cfp"))) ||
+      polls.find(p => p.poll === "AP Top 25") ||
+      polls.find(p => p.poll === "Coaches Poll") ||
+      polls[0] || { ranks: [] };
+
+    const rankMap = {};
+    for (const r of (targetPoll.ranks || [])) {
+      rankMap[r.school] = r.rank;
+    }
+
+    const processedGames = [];
+
+    for (const g of rawGames) {
+      const homeTeam = g.home_team || g.homeTeam;
+      const awayTeam = g.away_team || g.awayTeam;
+      
+      if (!homeTeam || !awayTeam) continue;
+
+      const homeRank = rankMap[homeTeam] || 999;
+      const awayRank = rankMap[awayTeam] || 999;
+      
+      const gameScore = homeRank + awayRank;
+      const homeIsHigher = homeRank <= awayRank;
+      
+      const higherTeamName = homeIsHigher ? homeTeam : awayTeam;
+      const lowerTeamName = homeIsHigher ? awayTeam : homeTeam;
+      
+      const higherRank = homeIsHigher ? homeRank : awayRank;
+      const lowerRank = homeIsHigher ? awayRank : homeRank;
+
+      const isNeutral = g.neutral_site || g.neutralSite;
+      let venueStatus = "Neutral";
+      if (!isNeutral) {
+         venueStatus = homeIsHigher ? "Home" : "Away";
+      }
+
+      let timeStr = "TBD";
+      const startDate = g.start_date || g.startDate;
+      let dateStr = startDate ? startDate.slice(0, 10) : "TBD";
+      
+      const startTimeTBD = g.start_time_tbd || g.startTimeTBD;
+      if (startDate && startTimeTBD !== true) {
+        try {
+          const dt = new Date(startDate);
+          if (!isNaN(dt)) {
+            timeStr = new Intl.DateTimeFormat("en-US", {
+              timeZone: tzParam,
+              hour: "numeric",
+              minute: "2-digit",
+              hour12: true,
+            }).format(dt);
+          }
+        } catch {}
+      }
+
+      processedGames.push({
+        score: gameScore,
+        date: dateStr,
+        time: timeStr,
+        venue_status: venueStatus,
+        higher_team: {
+          name: higherTeamName,
+          mascot: teamMetaMap[higherTeamName]?.mascot || "",
+          logo: teamMetaMap[higherTeamName]?.logo || null,
+          rank: higherRank === 999 ? null : higherRank,
+          record: recordsMap[higherTeamName] || "0-0"
+        },
+        lower_team: {
+          name: lowerTeamName,
+          mascot: teamMetaMap[lowerTeamName]?.mascot || "",
+          logo: teamMetaMap[lowerTeamName]?.logo || null,
+          rank: lowerRank === 999 ? null : lowerRank,
+          record: recordsMap[lowerTeamName] || "0-0"
+        }
+      });
+    }
+
+    processedGames.sort((a, b) => a.score - b.score);
+    const top10Games = processedGames.slice(0, 10).map(g => {
+      delete g.score; 
+      return g;
+    });
+
+    const payload = {
+      _worker_version: CACHE_VERSION,
+      season,
+      week,
+      poll: targetPoll.poll ?? "AP Top 25",
+      generated_at: new Date().toISOString(),
+      games: top10Games
+    };
+
+    const response = new Response(
+      JSON.stringify(payload, null, 2),
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "Cache-Control": "public, max-age=3600",
+          "Access-Control-Allow-Origin": "*",
+        },
+      }
+    );
+
+    await cache.put(cacheKey, response.clone());
+    return response;
+  },
+};
