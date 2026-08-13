@@ -12,12 +12,10 @@
   --col-datetime: 320px;       
   --nickname-display: none;
   
-  /* Thick white halo for 13.3" panel 
-  --text-halo: 
-    3px 3px 0 #fff, -3px -3px 0 #fff, 
-    3px -3px 0 #fff, -3px 3px 0 #fff, 
-    0px 3px 0 #fff, 0px -3px 0 #fff, 
-    3px 0px 0 #fff, -3px 0px 0 #fff; */
+  /* Dynamic vertical spacing variables */
+  --row-gap: 8px;
+  --row-pad-bot: 8px;
+  --head-pad-bot: 5px;
 }
 
 /* 7.3" (800x480) Variables - Mobile/Small Panel State */
@@ -32,12 +30,10 @@
     --col-datetime: 135px;     
     --nickname-display: none;
     
-    /* Thinner white halo for 7.3" panel
-    --text-halo: 
-      2px 2px 0 #fff, -2px -2px 0 #fff, 
-      2px -2px 0 #fff, -2px 2px 0 #fff, 
-      0px 2px 0 #fff, 0px -2px 0 #fff, 
-      2px 0px 0 #fff, -2px 0px 0 #fff; */
+    /* Tighter vertical spacing for the 800x480 display */
+    --row-gap: 3px;
+    --row-pad-bot: 4px;
+    --head-pad-bot: 1px;
   }
 }
 
@@ -63,7 +59,6 @@
   overflow: hidden;
   justify-content: space-between; 
   
-  /* Applies the white text outline dynamically */
   text-shadow: var(--text-halo);
 }
 
@@ -81,7 +76,7 @@
   font-size: var(--header-rec-font) !important; 
   font-weight: 700 !important; 
   color: #444 !important; 
-  white-space: nowrap; /* Prevents text from wrapping to a second line */
+  white-space: nowrap; 
 }
 
 /* THE GRID */
@@ -90,12 +85,12 @@
   grid-template-columns: var(--col-datetime) max-content auto 1fr;
   width: 100%; 
   align-items: center; 
-  gap: 8px;
+  gap: var(--row-gap);
 }
 
 .nd-head { 
   border-bottom: 4px solid #000; 
-  padding-bottom: 5px; 
+  padding-bottom: var(--head-pad-bot); 
 }
 
 .nd-head div { 
@@ -127,7 +122,6 @@
   overflow: hidden; 
 }
 
-/* Increased font size for "vs." */
 .vs {
   font-size: calc(var(--font-normal) * 0.85) !important;
   font-weight: 900 !important;
@@ -157,7 +151,6 @@
   margin-left: 4px;
 }
 
-/* Reduced font size for team record */
 .opp-record {
   font-size: calc(var(--font-normal) * 0.82) !important;
   font-weight: 500 !important;
@@ -166,7 +159,6 @@
   color: #000 !important;
 }
 
-/* Reduced font size for ranking indicator */
 .rank { 
   font-size: calc(var(--font-normal) * 0.85) !important;
   color: #000 !important; 
@@ -175,8 +167,7 @@
   flex-shrink: 0;
 }
 
-/* Adds a dividing line between games, skipping the header and the last game */
 .nd-row:not(.nd-head):not(:last-child) {
   border-bottom: 2px solid #000;
-  padding-bottom: 8px;
+  padding-bottom: var(--row-pad-bot);
 }
