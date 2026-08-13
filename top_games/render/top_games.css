@@ -1,5 +1,5 @@
 /* Import Jost Font */
-@import url('https://fonts.googleapis.com/css2?family=Jost:wght@500;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500;700;900&display=swap');
 
 /* 13.3" (1600x1200) Variables - Default State */
 :root {
@@ -30,7 +30,7 @@
     --font-meta: 18px;         
     --logo-sm: 30px;          
     --col-datetime: 135px;     
-    --nickname-display: inline;
+    --nickname-display: none;
     
     /* Thinner white halo for 7.3" panel
     --text-halo: 
@@ -43,7 +43,7 @@
 
 /* HARDWARE OPTIMIZATION */
 .nd-container, .nd-container * {
-  font-family: Jost, Arial, sans-serif !important;
+  font-family: Roboto, Arial, sans-serif !important;
   color: #000 !important;
   box-sizing: border-box;
   background-color: transparent !important;
