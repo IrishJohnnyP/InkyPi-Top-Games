@@ -1,7 +1,19 @@
 export default {
   async fetch(request, env, ctx) {
-    const CACHE_VERSION = "v4";
     const url = new URL(request.url);
+
+    // --- SECURITY CHECK (Dual-check: Headers or Query String) ---
+    const clientKey = request.headers.get('X-App-Key') || url.searchParams.get('app_key');
+    
+    if (!clientKey || clientKey !== env.app_key) {
+      return new Response(JSON.stringify({ error: "Unauthorized" }), { 
+        status: 401, 
+        headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" }
+      });
+    }
+    // -----------------------------------------------------------
+
+    const CACHE_VERSION = "v4";
     const season = Number(url.searchParams.get("season") ?? "2026");
     const week = Number(url.searchParams.get("week") ?? "1");
     const tzParam = url.searchParams.get("tz") ?? "America/Chicago";
@@ -183,7 +195,7 @@ export default {
       {
         headers: {
           "Content-Type": "application/json",
-          "Cache-Control": "public, max-age=3600",
+          "Cache-Control": "public, max-age=21600",
           "Access-Control-Allow-Origin": "*",
         },
       }
