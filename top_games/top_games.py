@@ -31,6 +31,13 @@ class top_games(BasePlugin):
         if week:
             params["week"] = week
 
+        # --- SECURITY FIX ---
+        # Retrieve the app_key from InkyPi's environment and include it in query params
+        app_key = device_config.load_env_key("app_key")
+        if app_key:
+            params["app_key"] = app_key
+        # --------------------
+
         try:
             session = get_http_session()
             response = session.get(WORKER_URL, params=params, timeout=15)
