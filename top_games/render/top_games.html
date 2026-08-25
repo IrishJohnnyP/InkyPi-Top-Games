@@ -17,8 +17,9 @@
     </div>
 
     <div class="nd-row nd-head">
-        <div class="datetime">TIME</div>
-        <div class="matchup-head">MATCHUP</div>
+        <div>TIME</div>
+        <div>HOME</div>
+        <div>AWAY</div>
     </div>
 
     {% for game in all_games %}
@@ -26,7 +27,7 @@
         <!-- Combined Date & Time -->
         <div class="datetime">{{ game.formatted_date }} &nbsp;{{ game.time }}</div>
 
-        <!-- First Team (Home or Higher Rank on Neutral) -->
+        <!-- Home Team (team1) -->
         <div class="opp">
             {% if game.team1.rank %}
             <span class="rank">#{{ game.team1.rank }}</span>
@@ -41,9 +42,7 @@
             <span class="opp-record">({{ game.team1.record }})</span>
         </div>
 
-        <div class="vs">vs.</div>
-
-        <!-- Second Team (Away or Lower Rank on Neutral) -->
+        <!-- Away Team (team2) -->
         <div class="opp">
             {% if game.team2.rank %}
             <span class="rank">#{{ game.team2.rank }}</span>
