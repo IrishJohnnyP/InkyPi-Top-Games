@@ -82,7 +82,7 @@
 /* THE GRID */
 .nd-row {
   display: grid;
-  grid-template-columns: var(--col-datetime) max-content auto 1fr;
+  grid-template-columns: var(--col-datetime) 1fr 1fr;
   width: 100%; 
   align-items: center; 
   gap: var(--row-gap);
@@ -91,6 +91,7 @@
 .nd-head { 
   border-bottom: 4px solid #000; 
   padding-bottom: var(--head-pad-bot); 
+  text-align: center;
 }
 
 .nd-head div { 
@@ -98,13 +99,10 @@
   font-weight: 900 !important; 
 }
 
-.matchup-head {
-  grid-column: 2 / -1;
-}
-
 .nd-row:not(.nd-head) .datetime {
   font-size: var(--font-meta) !important;
   font-weight: 700;
+  text-align: center;
 }
 
 .school { 
@@ -120,13 +118,6 @@
   align-items: center; 
   min-width: 0; 
   overflow: hidden; 
-}
-
-.vs {
-  font-size: calc(var(--font-normal) * 0.85) !important;
-  font-weight: 900 !important;
-  padding: 0 4px;
-  color: #000 !important;
 }
 
 /* LOGOS */
