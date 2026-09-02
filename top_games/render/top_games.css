@@ -1,5 +1,5 @@
 /* Import Font */
-@import url('https://fonts.googleapis.com/css2?family=Literata:wght@500;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500;700;900&display=swap');
 
 /* 13.3" (1600x1200) Variables - Default State */
 :root {
@@ -39,7 +39,7 @@
 
 /* HARDWARE OPTIMIZATION */
 .nd-container, .nd-container * {
-  font-family: Literata, sans-serif !important;
+  font-family: Oswald, sans-serif !important;
   color: #000 !important;
   box-sizing: border-box;
   background-color: transparent !important;
