@@ -18,7 +18,6 @@ class top_games(BasePlugin):
         return params
 
     def _find_logo_dir(self):
-        """Locate static/logos directory across system service paths."""
         current_dir = os.path.dirname(os.path.abspath(__file__))
         candidate_dirs = [
             "/home/john/InkyPi/src/static/logos",
@@ -30,29 +29,6 @@ class top_games(BasePlugin):
             if os.path.isdir(d):
                 return d
         return candidate_dirs[0]
-
-    def _get_local_logo_b64(self, school_name, logo_dir):
-        if not school_name:
-            return None
-
-        clean_school = school_name.lower().strip()
-        safe_name = clean_school.replace('&', 'and')
-        safe_name = re.sub(r'[^a-z0-9]', '_', safe_name)
-        safe_name = re.sub(r'_+', '_', safe_name).strip('_')
-
-        for ext in ["png", "jpg", "svg"]:
-            full_path = os.path.join(logo_dir, f"{safe_name}.{ext}")
-            if os.path.exists(full_path):
-                try:
-                    with open(full_path, "rb") as img_f:
-                        encoded = base64.b64encode(img_f.read()).decode("utf-8")
-                        mime = "svg+xml" if ext == "svg" else "png"
-                        return f"data:image/{mime};base64,{encoded}"
-                except Exception as img_err:
-                    logger.warning(f"[{self.name}] Error reading logo {full_path}: {img_err}")
-
-        logger.warning(f"[{self.name}] Logo missing for '{school_name}' (expected '{safe_name}.png' in {logo_dir})")
-        return None
 
     def _format_game_date(self, date_str):
         if not date_str or date_str == "TBD":
@@ -103,9 +79,36 @@ class top_games(BasePlugin):
             higher = dict(g.get("higher_team", {}))
             lower = dict(g.get("lower_team", {}))
 
-            higher["logo"] = self._get_local_logo_b64(higher.get("name"), logo_dir)
-            lower["logo"] = self._get_local_logo_b64(lower.get("name"), logo_dir)
+            # Inline logic replicated exactly from CFBRankings
+            for team_dict in [higher, lower]:
+                school = team_dict.get("name", "")
+                
+                safe_name = school.lower().replace('&', 'and')
+                safe_name = re.sub(r'[^a-z0-9]', '_', safe_name)
+                safe_name = re.sub(r'_+', '_', safe_name).strip('_')
 
+                candidate_files = [f"{safe_name}.png", f"{safe_name}.jpg", f"{safe_name}.svg"]
+                logo_b64 = None
+
+                for c_file in candidate_files:
+                    full_path = os.path.join(logo_dir, c_file)
+                    if os.path.exists(full_path):
+                        try:
+                            with open(full_path, "rb") as img_f:
+                                encoded = base64.b64encode(img_f.read()).decode("utf-8")
+                                ext = "svg+xml" if c_file.endswith(".svg") else "png"
+                                logo_b64 = f"data:image/{ext};base64,{encoded}"
+                                break
+                        except Exception as img_err:
+                            logger.warning(f"[{self.name}] Error reading logo {full_path}: {img_err}")
+                
+                if not logo_b64 and school:
+                    logger.warning(f"[{self.name}] Logo file missing for '{school}' (expected '{safe_name}.png' in {logo_dir})")
+
+                # Assign strictly to 'local_logo' key
+                team_dict["local_logo"] = logo_b64
+
+            # Order teams: Home team first, or higher ranked team if neutral
             if venue_status == "Away":
                 game_copy["team1"] = lower
                 game_copy["team2"] = higher
