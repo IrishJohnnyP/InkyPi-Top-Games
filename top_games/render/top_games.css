@@ -1,5 +1,17 @@
-/* Import Font */
-@import url('https://fonts.googleapis.com/css2?family=Jost:wght@500;700;900&display=swap');
+/* Local Barlow Condensed Fonts */
+@font-face {
+  font-family: 'Barlow Condensed';
+  src: url('/static/fonts/BarlowCondensed-Medium.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Barlow Condensed';
+  src: url('/static/fonts/BarlowCondensed-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
 
 /* 13.3" (1600x1200) Variables - Default State */
 :root {
@@ -39,7 +51,7 @@
 
 /* HARDWARE OPTIMIZATION */
 .nd-container, .nd-container * {
-  font-family: Jost, sans-serif !important;
+  font-family: 'Barlow Condensed', sans-serif !important;
   color: #000 !important;
   box-sizing: border-box;
   background-color: transparent !important;
@@ -58,7 +70,6 @@
   padding: 0px var(--container-padding) 1px var(--container-padding);
   overflow: hidden;
   justify-content: space-between; 
-  text-shadow: var(--text-halo);
 }
 
 .nd-header {
@@ -70,10 +81,10 @@
 }
 
 .nd-header-left { display: flex; align-items: center; gap: 15px; }
-.nd-name { font-size: var(--header-font) !important; font-weight: 900 !important; text-transform: uppercase; }
+.nd-name { font-size: var(--header-font) !important; font-weight: bold !important; text-transform: uppercase; }
 .nd-header-right { 
   font-size: var(--header-rec-font) !important; 
-  font-weight: 700 !important; 
+  font-weight: bold !important; 
   color: #444 !important; 
   white-space: nowrap; 
 }
@@ -95,18 +106,18 @@
 
 .nd-head div { 
   font-size: calc(var(--font-normal) * 0.85) !important; 
-  font-weight: 900 !important; 
+  font-weight: bold !important; 
 }
 
 .nd-row:not(.nd-head) .datetime {
   font-size: var(--font-meta) !important;
-  font-weight: 700;
+  font-weight: bold;
   text-align: center;
 }
 
 .school { 
   font-size: var(--font-normal) !important; 
-  font-weight: 700; 
+  font-weight: bold; 
   white-space: nowrap; 
   overflow: hidden; 
   text-overflow: ellipsis; 
@@ -136,14 +147,14 @@
 .nickname {
   display: var(--nickname-display) !important;
   font-size: 0.85em !important;
-  font-weight: 500 !important; 
+  font-weight: normal !important; 
   color: #000 !important;
   margin-left: 4px;
 }
 
 .opp-record {
   font-size: calc(var(--font-normal) * 0.82) !important;
-  font-weight: 500 !important;
+  font-weight: normal !important;
   margin-left: 6px;
   flex-shrink: 0;
   color: #000 !important;
@@ -152,7 +163,7 @@
 .rank { 
   font-size: calc(var(--font-normal) * 0.85) !important;
   color: #000 !important; 
-  font-weight: 900 !important; 
+  font-weight: bold !important; 
   margin-right: 6px; 
   flex-shrink: 0;
 }
