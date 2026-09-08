@@ -1,15 +1,8 @@
 /* Local Barlow Condensed Fonts */
 @font-face {
-  font-family: 'Barlow Condensed';
-  src: url('/static/fonts/BarlowCondensed-Medium.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Barlow Condensed';
-  src: url('/static/fonts/BarlowCondensed-Bold.ttf') format('truetype');
-  font-weight: bold;
+  font-family: 'Inter';
+  src: url('/static/fonts/Inter-VariableFont_opsz,wght.ttf') format('truetype');
+  font-weight: 100 900;
   font-style: normal;
 }
 
@@ -51,7 +44,7 @@
 
 /* HARDWARE OPTIMIZATION */
 .nd-container, .nd-container * {
-  font-family: 'Barlow Condensed', sans-serif !important;
+  font-family: Inter, sans-serif !important;
   color: #000 !important;
   box-sizing: border-box;
   background-color: transparent !important;
