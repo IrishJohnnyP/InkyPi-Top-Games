@@ -1,12 +1,13 @@
 {% extends "plugin.html" %}
 
 {% block content %}
+<!-- Dynamically apply the uploaded background image -->
 <div class="nd-container" 
      {% if plugin_settings and plugin_settings.background_image %}
      style="background-image: url('{{ plugin_settings.background_image }}'); background-size: cover; background-position: center; background-repeat: no-repeat;"
      {% endif %}>
      
-    <div class="nd-header">
+     <div class="nd-header">
         <div class="nd-header-left">
             <span class="nd-name">Top 10 Games</span>
         </div>
@@ -31,8 +32,8 @@
             {% if game.team1.rank %}
             <span class="rank">#{{ game.team1.rank }}</span>
             {% endif %}
-            {% if game.team1.logo %}
-            <img class="logo-sm" src="{{ game.team1.logo }}" alt="{{ game.team1.name }} logo">
+            {% if game.team1.local_logo %}
+            <img class="logo-sm" src="{{ game.team1.local_logo }}" alt="{{ game.team1.name }} logo">
             {% endif %}
             <span class="school">
                 {{ game.team1.name }}
@@ -46,8 +47,8 @@
             {% if game.team2.rank %}
             <span class="rank">#{{ game.team2.rank }}</span>
             {% endif %}
-            {% if game.team2.logo %}
-            <img class="logo-sm" src="{{ game.team2.logo }}" alt="{{ game.team2.name }} logo">
+            {% if game.team2.local_logo %}
+            <img class="logo-sm" src="{{ game.team2.local_logo }}" alt="{{ game.team2.name }} logo">
             {% endif %}
             <span class="school">
                 {{ game.team2.name }}
