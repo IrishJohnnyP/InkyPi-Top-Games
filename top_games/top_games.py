@@ -35,7 +35,8 @@ class top_games(BasePlugin):
         if not school_name:
             return None
 
-        safe_name = school_name.lower().replace('&', 'and')
+        clean_school = school_name.lower().strip()
+        safe_name = clean_school.replace('&', 'and')
         safe_name = re.sub(r'[^a-z0-9]', '_', safe_name)
         safe_name = re.sub(r'_+', '_', safe_name).strip('_')
 
@@ -49,6 +50,8 @@ class top_games(BasePlugin):
                         return f"data:image/{mime};base64,{encoded}"
                 except Exception as img_err:
                     logger.warning(f"[{self.name}] Error reading logo {full_path}: {img_err}")
+
+        logger.warning(f"[{self.name}] Logo missing for '{school_name}' (expected '{safe_name}.png' in {logo_dir})")
         return None
 
     def _format_game_date(self, date_str):
@@ -89,8 +92,8 @@ class top_games(BasePlugin):
 
         raw_games = data.get("games", [])
         logo_dir = self._find_logo_dir()
+        logger.info(f"[{self.name}] Active logo directory: {logo_dir}")
 
-        # Process games, order home/away, and inject local Base64 logos
         formatted_games = []
         for g in raw_games:
             game_copy = dict(g)
@@ -100,11 +103,9 @@ class top_games(BasePlugin):
             higher = dict(g.get("higher_team", {}))
             lower = dict(g.get("lower_team", {}))
 
-            # Inject Base64 logos
             higher["logo"] = self._get_local_logo_b64(higher.get("name"), logo_dir)
             lower["logo"] = self._get_local_logo_b64(lower.get("name"), logo_dir)
 
-            # Order teams: Home team first, or higher ranked team if neutral
             if venue_status == "Away":
                 game_copy["team1"] = lower
                 game_copy["team2"] = higher
