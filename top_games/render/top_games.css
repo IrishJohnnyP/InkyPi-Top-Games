@@ -53,6 +53,10 @@
   -webkit-font-smoothing: none !important; 
   font-smoothing: none !important;
   font-variant-ligatures: none;
+  
+  /* ✅ Optimizations for numerical alignment and digit legibility */
+  font-variant-numeric: tabular-nums; 
+  font-feature-settings: "cv05" 1, "tnum" 1;
 }
 
 .nd-container {
