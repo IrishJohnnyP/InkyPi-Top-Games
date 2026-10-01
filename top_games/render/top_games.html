@@ -17,15 +17,18 @@
     </div>
 
     <div class="nd-row nd-head">
-        <div>TIME</div>
+        <div class="datetime">TIME</div>
         <div>HOME</div>
         <div>AWAY</div>
     </div>
 
     {% for game in all_games %}
     <div class="nd-row">
-        <!-- Combined Date & Time -->
-        <div class="datetime">{{ game.formatted_date }} &nbsp;{{ game.time }}</div>
+        <!-- Combined Date & Time (Left Justified) -->
+        <div class="datetime">
+            <div class="dt-date">{{ game.formatted_date.replace('-', '/') if game.formatted_date else "—" }}</div>
+            <div class="dt-time">{{ game.time or "TBD" }}</div>
+        </div>
 
         <!-- Home Team (team1) -->
         <div class="opp">
