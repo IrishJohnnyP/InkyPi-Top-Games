@@ -1,4 +1,3 @@
-
 @font-face {
   font-family: 'Roboto Condensed';
   src: url('../../../static/fonts/RobotoCondensed-VariableFont_wght.ttf') format('truetype');
@@ -14,7 +13,7 @@
   --font-normal: 54px;        
   --font-meta: 38px;           
   --logo-sm: 70px;            
-  --col-datetime: 320px;       
+  --col-datetime: 140px; /* Reduced to give more space to the teams */     
   --nickname-display: none;
   
   /* Dynamic vertical spacing variables */
@@ -32,7 +31,7 @@
     --font-normal: 24px; 
     --font-meta: 16px;         
     --logo-sm: 30px;          
-    --col-datetime: 135px;     
+    --col-datetime: 75px; /* Reduced to give more space to the teams */     
     --nickname-display: none;
     
     /* Tighter vertical spacing for the 800x480 display */
@@ -54,7 +53,7 @@
   font-smoothing: none !important;
   font-variant-ligatures: none;
   
-  /* ✅ Optimizations for numerical alignment and digit legibility */
+  /* Optimizations for numerical alignment and digit legibility */
   font-variant-numeric: tabular-nums; 
   font-feature-settings: "cv05" 1, "tnum" 1;
 }
@@ -98,7 +97,6 @@
 .nd-head { 
   border-bottom: 4px solid #000; 
   padding-bottom: var(--head-pad-bot); 
-  text-align: center;
 }
 
 .nd-head div { 
@@ -106,10 +104,28 @@
   font-weight: bold !important; 
 }
 
-.nd-row:not(.nd-head) .datetime {
-  font-size: var(--font-meta) !important;
+/* COMBINED DATE & TIME STYLES */
+.datetime { 
+  text-align: left; 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.nd-head .datetime {
+  display: block; 
+  text-align: left;
+}
+
+.dt-date {
+  font-size: calc(var(--font-meta) * 0.80) !important;
   font-weight: bold;
-  text-align: center;
+}
+
+.dt-time {
+  font-size: calc(var(--font-meta) * 0.65) !important;
+  font-weight: normal;
 }
 
 .school { 
